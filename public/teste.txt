@@ -1,0 +1,3 @@
+txt teste
+
+A pasta public serve para arquivos ESTÁTICOS que podem ser solicitados no front-end
