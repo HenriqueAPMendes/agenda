@@ -4,14 +4,12 @@ exports.middleware = (req, res, next) => {
 };
 
 exports.checkCSRF = (err, req, res, next) => {
-    if (err && err.code === 'EBADCSRFTOKEN'){
-        return res.render('badCSRF'); //mostra pagina de erro
-    }
+    if (err) return res.render('404'); // mostra pagina de erro
     next();
 };
 
 exports.csrfMiddleware = (req, res, next) => {
     res.locals.csrfToken = req.csrfToken(); // cria token de formulario
-    // todo formulario precisa de 
+    // todo formulario precisa de um input hidden: <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     next();
 };
