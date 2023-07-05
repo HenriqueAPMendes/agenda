@@ -62,17 +62,17 @@ app.use(helmet());
 app.use(csrf());
 
 // middlewares de seguranca
-const { checkCSRF, csrfMiddleware } = require( './src/middlewares/middleware');
+const { checkCSRF, csrfMiddleware } = require( './src/middlewares/middlewares');
 app.use(checkCSRF);
 app.use(csrfMiddleware);
 
 /* ============================================================== */
 // MIDDLEWARES
 
-const middleware = require('./src/middlewares/middleware').middleware; 
+const messages = require('./src/middlewares/middlewares').messages;
 const routes = require('./routes');
 
-app.use(middleware);
+app.use(messages)
 app.use(routes);
 
 /* ============================================================== */

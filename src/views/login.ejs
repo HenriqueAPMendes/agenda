@@ -9,6 +9,8 @@
       <h1 class="text-center">Login</h1>
       <p class="text-center">Login with your account or create one</p>
 
+      <%- include('includes/messages') %>
+
       <div class="row">
         <div class="col-lg">
         <div class="col-lg">
@@ -16,14 +18,14 @@
           <form action="/login" method="POST">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label" name="email-login">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email-login">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
 
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label" name="password-login">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" name="password-login">
             </div>
 
             <p>New here? <a href="/login/register">Create an account</a></p>
