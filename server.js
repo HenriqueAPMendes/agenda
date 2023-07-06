@@ -42,9 +42,9 @@ const sessionOptions = session({
     secret: 'asdfliyujyhrbeawmn', // hash para a sessao
     store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
-        maxAge: 60 * 1000, // tempo que o cookie expira
+        maxAge: 7 * 24 * 60 * 60 * 1000, // tempo que o cookie expira
         httpOnly: true
     }
 });

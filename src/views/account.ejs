@@ -1,0 +1,35 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">MyAgenda</h1>
+      <p class="text-center">Your contacts</p>
+
+      <%- include('includes/messages') %>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search for contacts" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+      <div class="responsive-table">
+        <table class="table my-2">
+          <tr>
+            <td>foo 1</td>
+            <td>bar 1</td>
+            <td>foo1@bar.com</td>
+            <td>+55 11 111111111</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

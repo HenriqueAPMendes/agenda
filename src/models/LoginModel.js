@@ -1,10 +1,17 @@
 /**
- * LOGIN MODEL
+ * Login MODEL
  * 
  * recebe e trata dados de login e cadastro de usuarios
  */
 
+// validacao de email
+const validator = require('validator');
+
+// validacao de dados para inercao na DB
 const mongoose = require('mongoose');
+
+// criptografacao de senhas
+const bcrypt = require('bcryptjs');
 
 const LoginSchema = new mongoose.Schema({
     email: { type: String, required: true },
@@ -26,26 +33,30 @@ class Login {
 
     // Registra usuário
     async register() {
-        this.validate();
-        if (!this.checkErrors()) {
-            try {
-                this.user = await LoginModel.create({ email: this.body.email, password: this.body.password });
-            } catch (e) {
-                console.log(e); 
-            }
+        try {
+            await this.createUser();
+        } catch (e) {
+            console.log(e);
         }
+
     }
 
-    // Checa erros no processo de login
-    checkErrors() {
-        return (this.errors.length > 0);
+    // Loga usuário
+    async login() {
+        if (!await this.userExists()) {
+            this.errors.push("Invalid data");
+            return;
+        }
+
+        if (!bcrypt.compareSync(this.body.password, this.user.password)) {
+            this.errors.push("Invalid data");
+            return;
+        }
     }
 
     // Validação de dados
     validate() {
         this.cleanData();
-
-        const validator = require('validator');
 
         // Checa email válido
         if (!validator.isEmail(this.body.email)) this.errors.push('Invalid e-mail');
@@ -54,7 +65,6 @@ class Login {
         if (this.body.password.length < 3 || this.body.password.length > 50) this.errors.push('Password must be between 3 and 50 characters');
         if (this.body.password !== this.body.confirmPassword) this.errors.push('Passwords must be the same');
     }
-
 
     // Limpa os dados para que todos sejam strings e define o body de acordo com o LoginSchema
     cleanData() {
@@ -68,6 +78,38 @@ class Login {
             password: this.body.password,
             confirmPassword: this.body.confirmPassword
         };
+    }
+
+    // Cria o usuario
+    async createUser() {
+        // Checa se já existe esse usuário
+
+        if (await this.userExists()){
+            this.errors.push('User already exists');
+            return;
+        }
+        
+        this.validate();
+        if (this.errors.length > 0) return;
+
+        // criptografa senha
+        this.encrypt();
+
+        // cria usuário
+        this.user = await LoginModel.create({ email: this.body.email, password: this.body.password });
+
+    }
+
+    // Criptografa senha
+    encrypt() {
+        const salt = bcrypt.genSaltSync();
+        this.body.password = bcrypt.hashSync(this.body.password, salt);
+    }
+
+    // Checa se já existe usuário nesse email, evita cadastro duplo e checa login, salva usuario encontrado em this.user
+    async userExists() {
+        this.user = await LoginModel.findOne({ email: this.body.email });
+        return this.user ? true : false;
     }
 
 };
