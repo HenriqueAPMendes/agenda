@@ -11,7 +11,7 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">My agenda</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/user">My account</a></li>
-              <li><a class="dropdown-item" href="#">Edit contacts</a></li>
+              <li><a class="dropdown-item" href="/user/editcontacts">Edit contacts</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="<%=(session) ? '/user/logout' : '/user/login'%>"><%=(session) ? 'Logout' : 'Login' %></a></li>
             </ul>

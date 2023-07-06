@@ -1,0 +1,63 @@
+<%- include('includes/head') %>
+  <%- include('includes/nav') %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8 my-3">
+          <h1 class="text-center">MyAgenda</h1>
+          <p class="text-center">Your contacts</p>
+          <%- include('includes/messages') %>
+
+            <% if (session) {%>
+
+              <p class="my-3">Add a contact</p>
+              
+              <% if (contact._id) { %>
+              <form action="/user/editcontact/<%=contact._id%>" method="POST">
+              <% } else { %>
+                <form action="/user/addcontact" method="POST">
+              <% } %>
+              
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="mb-3">
+                  <label for="contact-name" class="form-label">First Name</label>
+                  <input type="text" id="contact-name" class="form-control" name="contact-name">
+                </div>
+
+                <div class="mb-3">
+                  <label for="contact-last-name" class="form-label">Last Name</label>
+                  <input type="text" id="contact-last-name" class="form-control" name="contact-last-name">
+                </div>
+
+                <div class="mb-3">
+                  <label for="contact-email" class="form-label">Email address</label>
+                  <input type="email" id="contact-email" class="form-control" name="contact-email">
+                </div>
+
+                <div class="mb-3">
+                  <label for="contact-phone" class="form-label">Phone</label>
+                  <input type="tel" id="contact-phone" class="form-control" name="contact-phone">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add</button>
+
+              </form>
+              <% } else { %>
+                <div class="row">
+                  <div class="col my-3">
+                    <div class="alert alert-success">
+                      User not logged in. <a href="/user/login">Login</a>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+
+        </div>
+
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <%- include('includes/footer') %>

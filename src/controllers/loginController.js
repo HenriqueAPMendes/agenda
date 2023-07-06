@@ -1,12 +1,5 @@
 const Login = require('../models/LoginModel');
 
-exports.account = (req, res) => {
-    if (req.session.user)
-        res.render('account');
-    else
-        res.redirect('/user/login')
-};
-
 exports.loginPage = (req, res) => {
     res.render('login');
 };
