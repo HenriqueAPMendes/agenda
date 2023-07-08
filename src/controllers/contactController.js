@@ -33,7 +33,7 @@ exports.editcontact = async (req, res) => {
             req.flash('errors', contact.errors); // mensagens de erro
             console.log(contact);
             req.session.save(() => res.redirect(`/user/editcontact/${req.params.id}`));
-            return;
+            return; 
         }
 
         req.flash('success', 'Contact successfully updated'); // mensagem de sucesso
