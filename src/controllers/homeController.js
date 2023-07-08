@@ -1,4 +1,5 @@
-exports.index = (req, res, next) => {
+exports.index = async (req, res, next) => {
     res.render('index');
     next();
-}
+};
+

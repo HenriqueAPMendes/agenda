@@ -9,6 +9,7 @@ const validator = require('validator');
 
 // validacao de dados para inercao na DB
 const mongoose = require('mongoose');
+const { crossOriginResourcePolicy } = require('helmet');
 
 const ContactSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
@@ -92,11 +93,28 @@ class Contact {
     }
 
     // Procura contato pelo id na DB
-    static async findById(id){
+    static async findById(id) {
 
         if (typeof id !== 'string') return null;
         const contact = await ContactModel.findById(id);
         return contact;
+    }
+
+    // Procura contatos na DB para mostrar na tela
+    static async findContacts() {
+        const contacts = await ContactModel.find().sort({ creationDate: -1 }); // ordena pela data de criacao decrescente
+        return contacts;
+    }
+
+    // Deleta contato pelo id
+    static async deleteContact(id){
+        if (typeof id !== 'string') return null;
+        try {
+            const contact = await this.findById(id);
+            await ContactModel.findByIdAndDelete(id);
+        } catch (e){
+            console.log(e);
+        }
     }
 };
 

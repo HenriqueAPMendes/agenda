@@ -21,6 +21,7 @@ routes.post('/user/register', loginController.register);
 // Rotas de contatos
 routes.get('/user', contactController.account);
 routes.get('/user/editcontact/:id', contactController.editcontactPage);
+routes.get('/user/deletecontact/:id', contactController.deletecontact);
 routes.get('/user/addcontact', contactController.addcontactPage);
 
 routes.post('/user/editcontact/:id?', contactController.editcontact);

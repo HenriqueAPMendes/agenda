@@ -18,12 +18,18 @@
 
       <div class="responsive-table">
         <table class="table my-2">
-          <tr>
-            <td>foo 1</td>
-            <td>bar 1</td>
-            <td>foo1@bar.com</td>
-            <td>+55 11 111111111</td>
-          </tr>
+
+          <% for (let contact of contacts){ %>
+            <tr>
+              <td><%= contact.firstName %></td>
+              <td><%= contact.lastName %></td>
+              <td><%= contact.phone %></td>
+              <td><%= contact.email %></td>
+              <td><%= contact.creationDat %></td>
+              <td><a href="/user/editcontact/<%=contact._id%>">Edit</a></td>
+              <td><a class="text-danger" href="/user/deletecontact/<%=contact._id%>">Delete</a></td>
+            </tr>
+          <% } %>
         </table>
       </div>
     </div>

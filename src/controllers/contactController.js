@@ -1,8 +1,10 @@
 const Contact = require('../models/ContactModel');
 
-exports.account = (req, res) => {
+exports.account = async (req, res) => {
+    const contacts = await Contact.findContacts();
+
     if (req.session.user)
-        res.render('account');
+        res.render('account', { contacts });
     else
         res.redirect('/user/login')
 };
@@ -33,7 +35,7 @@ exports.editcontact = async (req, res) => {
             req.flash('errors', contact.errors); // mensagens de erro
             console.log(contact);
             req.session.save(() => res.redirect(`/user/editcontact/${req.params.id}`));
-            return; 
+            return;
         }
 
         req.flash('success', 'Contact successfully updated'); // mensagem de sucesso
@@ -64,4 +66,17 @@ exports.addcontact = async (req, res) => {
         console.log(e);
         return res.render('404');
     }
+};
+
+exports.deletecontact = async (req, res) => {
+    if (!req.params.id) return res.render('404');
+    try {
+        Contact.deleteContact(req.params.id);
+        req.flash('success', 'Deleted contact');
+        req.session.save(() => res.redirect('/user'));
+    } catch (e) {
+        console.log(e);
+        res.render('404');
+    }
+
 };
