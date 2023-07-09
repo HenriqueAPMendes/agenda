@@ -14,7 +14,7 @@
 
               <p class="my-3">Edit a contact</p>
 
-              <form action="/user/editcontact/<%=contact._id%>" method="POST">
+              <form class="editcontact-form" action="/user/editcontact/<%=contact._id%>" method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="mb-3">
                   <label for="contact-name" class="form-label">First Name</label>

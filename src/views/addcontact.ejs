@@ -15,7 +15,7 @@
               <p class="my-3">Add a contact</p>
               
               <% if (contact._id) { %>
-              <form action="/user/editcontact/<%=contact._id%>" method="POST">
+              <form class="addcontact-form" action="/user/editcontact/<%=contact._id%>" method="POST">
               <% } else { %>
                 <form action="/user/addcontact" method="POST">
               <% } %>
